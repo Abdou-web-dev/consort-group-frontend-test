@@ -1,0 +1,183 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@mixin p_styles {
+  font-family: "Raleway", sans-serif;
+  color: gray;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+@mixin btn_text_styles {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+@mixin btn_styles {
+  background: none;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  box-shadow: none;
+}
+.login-container {
+  display: flex;
+  .login-form-container {
+    padding: 2rem 0;
+    padding-top: 4rem;
+    flex: 50%;
+    .login-form-header {
+      display: grid;
+      justify-items: center;
+      margin-bottom: 1.6rem;
+      .login-form-header-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        h2 {
+          font-family: "Noto Sans", sans-serif;
+          font-size: 2rem;
+          margin: 0;
+          margin-bottom: 0.7rem;
+        }
+        p {
+          @include p_styles();
+        }
+      }
+    }
+    .login-form-email-pwd-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      .login-form-email,
+      .login-form-password {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        width: 50%;
+        margin-left: 10%;
+
+        label {
+          font-family: "Noto Sans", sans-serif;
+          font-size: 0.8rem;
+          font-weight: 500;
+          // border: 2px solid red;
+        }
+        .email-login-input,
+        .ant-input-affix-wrapper {
+          // width: 120%;
+          height: 2.2rem;
+        }
+      }
+    }
+    .login-form-checkbox-forgot-wrapper {
+      margin-top: 1rem;
+      margin-left: 8.5%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      .checkbox {
+        span {
+          font-family: "Noto Sans", sans-serif;
+          font-size: 0.8rem;
+          font-weight: 500;
+        }
+      }
+      .forgot-btn {
+        @include btn_styles();
+        span {
+          @include btn_text_styles();
+        }
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
+      }
+    }
+    .login-form-signin-btns-wrapper {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      margin-left: 6.5%;
+
+      .login-form-g-signin-btn {
+        width: 53.5%;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        span {
+          font-family: "Noto Sans", sans-serif;
+        }
+      }
+      .login-form-signin-btn {
+        // width: 50%;
+        width: 53.5%;
+        margin-left: 20px;
+        border: 0;
+        background: rgba(0, 0, 0, 0.8);
+        &:hover {
+          background: rgba(0, 0, 0, 1);
+          border: 0;
+        }
+        span {
+          color: white;
+          font-family: "Noto Sans", sans-serif;
+          font-size: 0.85rem;
+        }
+      }
+    }
+    .login-form-signup-btn-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
+      .signup-text-1 {
+        @include p_styles();
+      }
+      .signup-btn {
+        @include btn_styles();
+
+        .signup-text-2 {
+          @include btn_text_styles();
+        }
+      }
+    }
+  }
+  .login-card-container {
+    flex: 50%;
+    background: url("../assets/img/hannah-olinger-NXiIVnzBwZ8-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+
+    .login-carousel-btns {
+      // margin-top: 60%;
+      position: absolute;
+      top: 50%;
+      // left: -2%;
+      margin-left: 30%;
+      border: 2px solid red;
+      .prev-btn {
+      }
+      .next-btn {
+      }
+    }
+    .login-carousel-container {
+      margin-top: 60%;
+      position: relative;
+      filter: blur(0.75px);
+    }
+  }
+}
