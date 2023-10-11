@@ -2,6 +2,7 @@ import { Button, Carousel } from "antd";
 import { FunctionComponent, MutableRefObject, useRef, useState } from "react";
 import prev_arrow from "../../assets/img/arrow_left.svg";
 import next_arrow from "../../assets/img/arrow_right.svg";
+import { CarouselContent } from "../carousels/CarouselContent";
 import "../styles.scss";
 interface LoginRightCardProps {}
 
@@ -18,8 +19,7 @@ export const LoginRightCard: FunctionComponent<LoginRightCardProps> = () => {
           className="prev-btn"
           icon={
             <img
-              width={`30px`}
-              style={{ border: "1px solid red" }}
+              //  width={`30px`}
               src={prev_arrow}
               alt=""
             />
@@ -36,8 +36,7 @@ export const LoginRightCard: FunctionComponent<LoginRightCardProps> = () => {
           }}
           icon={
             <img
-              width={`30px`}
-              style={{ border: "1px solid red" }}
+              //  width={`30px`}
               src={next_arrow}
               alt=""
             />
@@ -49,9 +48,9 @@ export const LoginRightCard: FunctionComponent<LoginRightCardProps> = () => {
       <div className="login-carousel-container">
         <Carousel
           // slide={slide}
-          className="home-carousel-carousel"
-          style={{ background: "gray" }}
-          dots
+          className="login-antd-carousel"
+          // style={{ background: "gray", minHeight: "10rem" }}
+          dots={false}
           dotPosition="right"
           ref={ref}
           pauseOnHover
@@ -59,20 +58,40 @@ export const LoginRightCard: FunctionComponent<LoginRightCardProps> = () => {
           draggable={true}
           // currentSlide={currentSlide}
           afterChange={(currentSlide) => {
-            // console.log(currentSlide, "currentSlide");
             setCurrentSlide(currentSlide);
           }}
           // arrows
         >
-          <div>
-            <h1>test1</h1>
-          </div>
-          <div>
-            <h1>test2</h1>
-          </div>
-          <div>
-            <h1>test3</h1>
-          </div>
+          <CarouselContent
+            h2="Andi Lane"
+            h3={`"We've beeen using Untitled to kick start every new project and can't imagine working without it."`}
+            h4="Founder, Catalog"
+            h5="Web Design Agency"
+            rankingValue={5}
+          />
+          <CarouselContent
+            h2="Jonathan Josh"
+            h3={`"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero
+            cupiditate laboriosam cum, nisi."`}
+            h4="Founder, CMM"
+            h5="Web Design Agency"
+            rankingValue={3}
+          />
+          <CarouselContent
+            rankingValue={5}
+            h2="Jean Jack"
+            h3={`"Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
+            est tempore."`}
+            h4="Founder, CFAR"
+            h5="Web Development Agency"
+          />
+          <CarouselContent
+            rankingValue={4}
+            h2="Andrea Tomitee"
+            h3={`"Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboru"`}
+            h4="Founder, LOUPAN"
+            h5="Data Mining Agency"
+          />
         </Carousel>
       </div>
     </div>
