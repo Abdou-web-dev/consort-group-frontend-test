@@ -192,24 +192,40 @@
       }
     }
     .login-carousel-container {
-      margin-top: 64%;
+      margin-top: 46%;
       position: relative;
-      // filter: blur(0.75px);
       .ant-carousel {
         display: flex;
         justify-content: center;
         align-items: center;
         .login-antd-carousel {
-          min-height: 13.8rem;
-          background: rgba(128, 128, 128, 0.428);
-          // margin-bottom: -5rem;
-          position: relative;
-          bottom: 6rem;
+          min-height: 15rem;
+          background: rgba(231, 219, 219, 0.428);
+          // position: relative;
+          // bottom: 6rem;
           width: 93%;
-          // padding-right: 2rem;
-          // padding-left: 2rem;
+          backdrop-filter: blur(3px);
+          // The backdrop-filter CSS property lets you apply graphical effects such as blurring or color shifting to the area behind an element. Because it applies to everything behind the element, to see the effect you must make the element or its background at least partially transparent.
         }
       }
+    }
+    &.login-card-container__slide1 {
+      background: url("../assets/img/designer.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    &.login-card-container__slide2 {
+      background: url("../assets/img/developer.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    &.login-card-container__slide3 {
+      background: url("../assets/img/mining.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
     }
   }
   .reg-form-container {
@@ -286,5 +302,79 @@
       // border: 1px solid;
       // display: none;
     }
+  }
+}
+
+// backdrop-filter: blur(20px) saturate(120%) contrast(200%);
+
+.home-container {
+  // display: flex;
+  // gap: 0.9rem;
+}
+.images-gallery-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  .image-wrapper {
+    display: flex;
+    flex-direction: column;
+    img {
+      width: 90%;
+      height: fit-content;
+      height: 100%;
+    }
+  }
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #fff #fff transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #ff3d00 #ff3d00;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 32px;
+  height: 32px;
+  border-color: #fff #fff transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
   }
 }

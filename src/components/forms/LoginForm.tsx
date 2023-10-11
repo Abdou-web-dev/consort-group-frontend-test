@@ -57,6 +57,11 @@ export const LoginForm: FunctionComponent<Props> = () => {
         // Set some state or context to indicate the user is logged in
         if (isEmailValid) {
           handleConnect();
+          // Store the authentication status in localStorage
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ isAuthenticated: true })
+          );
           // Clear the form
           setEmail("");
           setPassword("");

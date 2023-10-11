@@ -5,15 +5,31 @@ import next_arrow from "../../assets/img/arrow_right.svg";
 import { CarouselContent } from "../carousels/CarouselContent";
 import "../styles.scss";
 interface LoginRightCardProps {}
+interface LoginRightCardProps {}
 
 export const LoginRightCard: FunctionComponent<LoginRightCardProps> = () => {
   const [slide, setSlide] = useState("");
   const [currentSlide, setCurrentSlide] = useState<any>(0);
   const ref: MutableRefObject<HTMLButtonElement | null | undefined | any> =
     useRef();
+  // console.log(Number(slide));
 
   return (
-    <div className="login-card-container">
+    <div
+      className={`login-card-container
+    ${
+      Number(slide) === 0
+        ? "login-card-container__slide0"
+        : Number(slide) === 1
+        ? "login-card-container__slide1"
+        : Number(slide) === 2
+        ? "login-card-container__slide2"
+        : Number(slide) === 3
+        ? "login-card-container__slide3"
+        : ""
+    }
+    `}
+    >
       <div className="login-carousel-btns">
         <Button
           className="prev-btn"
@@ -49,16 +65,26 @@ export const LoginRightCard: FunctionComponent<LoginRightCardProps> = () => {
         <Carousel
           // slide={slide}
           className="login-antd-carousel"
-          // style={{ background: "gray", minHeight: "10rem" }}
           dots={false}
           dotPosition="right"
           ref={ref}
           pauseOnHover
           autoplay={true}
           draggable={true}
-          // currentSlide={currentSlide}
           afterChange={(currentSlide) => {
-            setCurrentSlide(currentSlide);
+            // setCurrentSlide(currentSlide);
+            if (currentSlide === 0) {
+              setSlide("0");
+            }
+            if (currentSlide === 1) {
+              setSlide("1");
+            }
+            if (currentSlide === 2) {
+              setSlide("2");
+            }
+            if (currentSlide === 3) {
+              setSlide("3");
+            }
           }}
           // arrows
         >
