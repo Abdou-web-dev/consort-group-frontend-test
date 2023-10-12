@@ -19,7 +19,7 @@ export const TopFilterButtons: FunctionComponent<
   ];
 
   return (
-    <div>
+    <div className="top-btns-container">
       {labels.length &&
         labels?.map((label, index) => {
           return <CategoryFilterButton key={index} label={label} />;

@@ -28,8 +28,8 @@ export const LoginForm: FunctionComponent<Props> = () => {
   const isPasswordStrong: boolean = regular_expression_pwd.test(password);
 
   const handleConnect = () => {
+    // Set state or context to indicate the user is logged in
     setIsConnected(true);
-    // console.log(isConnected, "isConnected");
     navigate("/");
   };
 
@@ -40,7 +40,6 @@ export const LoginForm: FunctionComponent<Props> = () => {
       // Retrieve the stored user data
       // a simpler approach is to use ?? to add a fallback value as an alternative to localstorage.getitem('email')
       const email_reg = JSON.parse(localStorage.getItem("email") ?? "");
-      // console.log(email_reg, "email_reg");
       const password_reg = JSON.parse(localStorage.getItem("password") ?? "");
 
       // const auth:boolean = json.parse(localstorage.getitem('auth') ?? "false");
@@ -52,29 +51,33 @@ export const LoginForm: FunctionComponent<Props> = () => {
         password_reg
       );
 
-      if (email_reg === email && doesPasswordMatch === true) {
+      // if (email_reg === email && doesPasswordMatch === true) { this condition has been changed
+      let connectUser1 = email === `muser1` || email === `muser1@gmail.com`;
+      let connectUser2 = email === `muser2` || email === `muser2@gmail.com`;
+      let connectUser3 = email === `muser3` || email === `muser3@gmail.com`;
+
+      if (
+        (connectUser1 && password === `mpassword1`) ||
+        (connectUser2 && password === `mpassword2`)
+      ) {
         // User is authenticated
-        // Set some state or context to indicate the user is logged in
-        if (isEmailValid) {
-          handleConnect();
-          // Store the authentication status in localStorage
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ isAuthenticated: true })
-          );
-          // Clear the form
-          setEmail("");
-          setPassword("");
-        }
+        handleConnect();
+        // Store the authentication status in localStorage
+        localStorage.setItem("user", JSON.stringify({ isAuthenticated: true }));
+        // Clear the form
+        setEmail("");
+        setPassword("");
+      } else if (connectUser3 && password === `mpassword3`) {
+        message.error("Ce compte a été bloqué", 1.8);
       } else {
         // Authentication failed
         // Handle the error
+        message.error("Informations de connexion invalides", 1.8);
         console.log("Login failed. Please check your email and password.");
       }
     }
   };
   const onCheckChange = (e: CheckboxChangeEvent) => {
-    // console.log("checked = ", e.target.checked);
     setChecked(e.target.checked);
   };
   function handleGoogleLogin(
@@ -84,31 +87,37 @@ export const LoginForm: FunctionComponent<Props> = () => {
   }
 
   function validateFields() {
-    const email_reg = JSON.parse(localStorage.getItem("email") ?? "");
-    const password_reg = JSON.parse(localStorage.getItem("password") ?? "");
-    const doesPasswordMatch: boolean = bcrypt.compareSync(
-      password,
-      password_reg
-    );
-    let doesEmailMatch = email_reg !== email;
-    if (doesEmailMatch) {
-      message.warning("invalid email", 0.8);
-    }
-    if (doesPasswordMatch === false) {
-      message.warning("invalid password", 0.8);
-    }
+    // this is code has been commented because I am asked to allow connecting only two users : muser1 and muser2
+    // const email_reg = JSON.parse(localStorage.getItem("email") ?? "");
+    // const password_reg = JSON.parse(localStorage.getItem("password") ?? "");
+    // const doesPasswordMatch: boolean = bcrypt.compareSync(
+    //   password,
+    //   password_reg
+    // );
+    // let doesEmailMatch = email_reg !== email;
+    // if (doesEmailMatch) {
+    //   message.warning("invalid email", 0.8);
+    // }
+    // if (doesPasswordMatch === false) {
+    //   message.warning("invalid password", 0.8);
+    // }
 
-    if (!email) {
+    if (!email && password) {
       message.warning("type your email address", 0.8);
       setEmailStatus("error");
     } else {
       setEmailStatus("");
     }
-    if (!password) {
+    if (!password && email) {
       message.warning("type your password", 0.8);
       setPasswordStatus("error");
     } else {
       setPasswordStatus("");
+    }
+    if (!email && !password) {
+      message.warning("type your credentials", 0.8);
+      setEmailStatus("error");
+      setPasswordStatus("error");
     }
   }
 

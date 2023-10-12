@@ -38,23 +38,26 @@ export const Home = () => {
 
   if (loading) {
     // Render a loading indicator or placeholder component
-    return (
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint suscipit
-        praesentium iure! Quas corporis quibusdam veniam delectus vero magni
-      </div>
-    );
+    return <span className="loader"></span>;
   }
 
   return (
     <div className="home-container">
       {isConnected ? (
         <>
-          <LeftDropDown />
-          <TopFilterButtons />
-          <FilterButton />
+          <div className="top-bar">
+            <div className="filter-btns">
+              <LeftDropDown />
+              <TopFilterButtons />
+              <FilterButton />
+            </div>
+            <div className="logout-btn">
+              <Button onClick={handleLogout}>
+                <span>log out</span>
+              </Button>
+            </div>
+          </div>
           <ImagesGallery />
-          <Button onClick={handleLogout}>logout</Button>
         </>
       ) : (
         <Login />

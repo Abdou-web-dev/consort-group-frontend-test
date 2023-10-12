@@ -1,61 +1,68 @@
 import axios from "axios";
 import { FunctionComponent, useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { UnsplashImageType } from "../../types/UnsplashImage";
 import { SingleImage } from "./SingleImage";
 
 interface ImagesGalleryProps {}
 
-export const ImagesGallery: FunctionComponent<ImagesGalleryProps> = () => {
-  //   const { isConnected, setIsConnected } = useContext(AuthContext); // Assuming you're using your context for authentication
-
-  let dix = 9;
-  let suffix = `https://api.unsplash.com/photos`;
-  const [images, setImages] = useState<any>([]);
+export const ImagesGallery: FunctionComponent<ImagesGalleryProps> = ({}) => {
+  const [images, setImages] = useState<UnsplashImageType[]>([]);
   const [loading, setLoading] = useState(true);
-  let url = `${suffix}?client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&page=${dix}&per_page=15`;
+  const resultsPerPage = 20;
 
-  // useEffect to fetch wallet data from public API
-
-  const fetchData = async () => {
+  const fetchImages = async (page: number) => {
     try {
-      const { data: response } = await axios.get(url);
-      setImages(response);
-      console.log(response, "images Data");
+      const apiUrl = `https://api.unsplash.com/photos?client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&page=${page}&per_page=${resultsPerPage}`;
+      const { data: response } = await axios.get(apiUrl);
+      return response;
     } catch (error) {
       console.error("Error fetching images:", error);
-    } finally {
-      setTimeout(() => {
-        setLoading(false); // Delay transitioning from loading to showing images
-      }, 1000); // Adjust the delay duration (in milliseconds) as needed
+      return [];
+    }
+  };
+
+  const loadMore = async () => {
+    try {
+      // images.length : This part of the code gets the current number of images that have already been loaded and stored in the images array.
+      let pageToBeLoadedNext = images.length / resultsPerPage;
+      const newImages = await fetchImages(pageToBeLoadedNext + 1); //this line of code calculates the next page number based on the number of images already loaded and the desired number of images per page
+      setImages([...images, ...newImages]);
+    } catch (error) {
+      console.error("Error loading more images:", error);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    async function loadInitialImages() {
+      setLoading(true);
+      const newImages: UnsplashImageType[] = await fetchImages(1);
+      setImages(newImages);
+      setLoading(false);
+    }
+
+    loadInitialImages();
   }, []);
 
   if (loading) {
-    return <span className="loader"></span>;
-  } else {
-    return (
-      <div className="images-gallery-container">
-        {images.length &&
-          images?.map((image: { id: string }, index: number) => {
-            return <SingleImage {...{ image }} key={image.id} />;
-          })}
-        {/* {images[13]?.urls.thumbnail} */}
-      </div>
-    );
+    return <span className="loader spin-loader"></span>;
   }
+
+  return (
+    <InfiniteScroll
+      dataLength={images.length}
+      next={loadMore}
+      hasMore={true}
+      loader={
+        <div>
+          <p className="loader spin-loader">Loading...</p>
+        </div>
+      }
+      className="images-gallery-container"
+    >
+      {images?.map((image: UnsplashImageType) => (
+        <SingleImage key={image.id} image={image} />
+      ))}
+    </InfiniteScroll>
+  );
 };
-
-// Three things to note here
-// the variable must be prefixed with REACT_APP_
-// eg: REACT_APP_WEBSITE_NAME=hello
-// You need to restart the server to reflect the changes.
-// Make sure you have the .env file in your root folder(same place where you have your package.json)
-//  and NOT in your src folder.
-// After that you can access the variable like this process.env.REACT_APP_SOME_VARIABLE
-// Additional tips
-
-// No need to wrap your variable value in single or double quotes.
-// Do not put semicolon ; or comma , at the end of each line.

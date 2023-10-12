@@ -6,16 +6,15 @@ interface FilterButtonProps {}
 
 export const FilterButton: FunctionComponent<FilterButtonProps> = () => {
   return (
-    <div>
-      <Button
-        icon={
-          <>
-            <img width={`25px`} src={filter_icon} alt="" />
-          </>
-        }
-      >
-        <span>Filters</span>
-      </Button>
-    </div>
+    <Button
+      className="right-filter-btn"
+      icon={
+        <>
+          <img width={`25px`} src={filter_icon} alt="" />
+        </>
+      }
+    >
+      <span>Filters</span>
+    </Button>
   );
 };

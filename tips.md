@@ -8,3 +8,7 @@ The loading attribute specifies whether a browser should load an image immediate
 lazy : Defer loading of images until some conditions are met
 
 Using key={image.id} in each fragment is a good practice to help React efficiently update the list of images when changes occur.
+
+val : number ---> val! : The only time you should really see this is in TypeScript and it’s to indicate that the value should not be null or undefined.
+
+// It's a good practice to separate data fetching logic from state management. By returning the response from the function, you keep the data-fetching logic isolated from the component's state management. This makes your code more modular and easier to maintain.

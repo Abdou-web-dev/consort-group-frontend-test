@@ -9,7 +9,7 @@ export const CategoryFilterButton: FunctionComponent<
   CategoryFilterButtonProps
 > = ({ label }) => {
   return (
-    <Button>
+    <Button className="categ-btn">
       <span>{label}</span>
     </Button>
   );
